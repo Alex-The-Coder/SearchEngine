@@ -29,7 +29,7 @@ template<typename T, typename U, typename V, typename W, typename X>
 HashTableNode<T, U, V, W, X>::HashTableNode(const long& hash, const T& key, const U& subKey, const V& value, HashTableNode<T, U, V, W, X>* next):
 	hash(hash), key(key), next(next)
 {
-    values[subKey].emplace(value);
+	values[subKey].emplace(value);
 }
 
 template<typename T, typename U, typename V, typename W, typename X>
