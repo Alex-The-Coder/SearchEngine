@@ -40,12 +40,12 @@ InputProcessor::InputProcessor()
 
 InputProcessor::InputProcessor(const InputProcessor& copy)
 {
-    stopWords = copy.stopWords;
+	stopWords = copy.stopWords;
 }
 
 InputProcessor::InputProcessor(InputProcessor&& copy)
 {
-    stopWords = copy.stopWords;
+	stopWords = copy.stopWords;
 }
 
 InputProcessor& InputProcessor::operator=(const InputProcessor& copy)
@@ -126,25 +126,25 @@ string& InputProcessor::stripHTML(string& text) const
 
 string& InputProcessor::lowerCase(string& text) const
 {
-    for (unsigned int i = 0; i < text.size(); i++)
-    {
-        text[i] = tolower(text[i]);
-    }
+	for (unsigned int i = 0; i < text.size(); i++)
+	{
+		text[i] = tolower(text[i]);
+	}
 	
 	return text;
 }
 
 bool InputProcessor::isAlphaOnly(const string& text) const
 {
-    for (unsigned int i = 0; i < text.size(); i++)
-    {
-        if (!isalpha(text[i]))
-        {
-            return false;
-        }
-    }
-    
-    return true;
+	for (unsigned int i = 0; i < text.size(); i++)
+	{
+		if (!isalpha(text[i]))
+		{
+			return false;
+		}
+	}
+ 	
+	return true;
 }
 
 bool InputProcessor::isStopWord(const string& text) const
