@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-    InputProcessor::getInstance();
+	InputProcessor::getInstance();
 	SearchEngine engine;
     
 	return 0;
