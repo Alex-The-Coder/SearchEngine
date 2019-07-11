@@ -121,17 +121,17 @@ bool HashTable<T, U, V, W, X, Y>::isEmpty()
 template<typename T, typename U, typename V, typename W, typename X, typename Y>
 bool HashTable<T, U, V, W, X, Y>::isDefaultValueSet(unordered_map<U, unordered_set<V, X>, W>& check)
 {
-    return &check == &empty;
+	return &check == &empty;
 }
 
 template<typename T, typename U, typename V, typename W, typename X, typename Y>
 inline LongTuple HashTable<T, U, V, W, X, Y>::computeBucket(const T& key)
 {
-    LongTuple lt;
-    lt.first = Y{}(key);
-    lt.second = lt.first & (totalBuckets - 1);
-    
-    return lt;
+	LongTuple lt;
+	lt.first = Y{}(key);
+	lt.second = lt.first & (totalBuckets - 1);
+	
+	return lt;
 }
 
 template<typename T, typename U, typename V, typename W, typename X, typename Y>
