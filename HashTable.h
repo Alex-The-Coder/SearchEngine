@@ -12,8 +12,8 @@ using namespace std;
 
 struct LongTuple
 {
-    long first;
-    long second;
+	long first;
+	long second;
 };
 
 template<typename T, typename U, typename V, typename W = std::hash<U>, typename X = std::hash<V>, typename Y = std::hash<T>>
@@ -23,7 +23,7 @@ private:
 	unsigned int totalBuckets;
 	unsigned int count;
 	HashTableNode<T, U, V, W, X>** buckets;
-    unordered_map<U, unordered_set<V, X>, W> empty;
+	unordered_map<U, unordered_set<V, X>, W> empty;
 public:
 	HashTable();
 	HashTable(const HashTable<T, U, V, W, X, Y>&);
@@ -32,20 +32,20 @@ public:
 
 	unsigned int getElements();
 	bool isEmpty();
-    bool isDefaultValueSet(unordered_map<U, unordered_set<V, X>, W>&);
+	bool isDefaultValueSet(unordered_map<U, unordered_set<V, X>, W>&);
 
 	void insert(const T&, const U&, const V&);
-    unordered_map<U, unordered_set<V, X>, W>& getValues(const T&);
-    void getMostCommonKeys(unsigned int, list<T>&);
+	unordered_map<U, unordered_set<V, X>, W>& getValues(const T&);
+	void getMostCommonKeys(unsigned int, list<T>&);
 	void saveToFile(string&);
 	void loadFromFile(string&);
 private:
 	HashTableNode<T, U, V, W, X>** createBuckets(unsigned int);
 	void resizeTable();
-    bool insert(const long&, const T&, const U&, const V&, HashTableNode<T, U, V, W, X>*&);
+	bool insert(const long&, const T&, const U&, const V&, HashTableNode<T, U, V, W, X>*&);
 	void insert(const long&, const T&, const unordered_map<U, unordered_set<V, X>, W>&, HashTableNode<T, U, V, W, X>*&);
 	void clear(HashTableNode<T, U, V, W, X>*&);
-    LongTuple computeBucket(const T&);
+	LongTuple computeBucket(const T&);
 };
 
 template<typename T, typename U, typename V, typename W, typename X, typename Y>
@@ -203,39 +203,39 @@ unordered_map<U, unordered_set<V, X>, W>& HashTable<T, U, V, W, X, Y>::getValues
 		}
 	}
     
-    empty.clear();
+	empty.clear();
 	return empty;
 }
 
 template<typename T, typename U, typename V, typename W, typename X, typename Y>
 void HashTable<T, U, V, W, X, Y>::getMostCommonKeys(unsigned int count, list<T>& loadInto)
 {
-    count = std::min(count, this->count);
+	count = std::min(count, this->count);
     
-    while (loadInto.size() < count)
-    {
-        T maxKey;
-        unsigned long maxValue = 0;
-        
-        for (unsigned int i = 0; i < totalBuckets; i++)
-        {
-            for (HashTableNode<T, U, V, W, X>* bucket = buckets[i]; bucket != nullptr; bucket = bucket->getNext())
-            {
-                if (maxValue == 0 || bucket->getValues().size() > maxValue)
-                {
-                    const auto& pos = std::find(loadInto.begin(), loadInto.end(), bucket->getKey());
-                    
-                    if (pos == loadInto.end())
-                    {
-                        maxKey = bucket->getKey();
-                        maxValue = bucket->getValues().size();
-                    }
-                }
-            }
-        }
-        
-        loadInto.emplace_back(maxKey);
-    }
+	while (loadInto.size() < count)
+	{
+		T maxKey;
+		unsigned long maxValue = 0;
+		
+		for (unsigned int i = 0; i < totalBuckets; i++)
+		{
+			for (HashTableNode<T, U, V, W, X>* bucket = buckets[i]; bucket != nullptr; bucket = bucket->getNext())
+			{
+				if (maxValue == 0 || bucket->getValues().size() > maxValue)
+				{
+					const auto& pos = std::find(loadInto.begin(), loadInto.end(), bucket->getKey());
+					
+					if (pos == loadInto.end())
+					{
+						maxKey = bucket->getKey();
+						maxValue = bucket->getValues().size();
+					}
+				}
+			}
+		}
+		
+		loadInto.emplace_back(maxKey);
+	}
 }
 
 template<typename T, typename U, typename V, typename W, typename X, typename Y>
@@ -340,14 +340,14 @@ void HashTable<T, U, V, W, X, Y>::loadFromFile(string& path)
 template<typename T, typename U, typename V, typename W, typename X, typename Y>
 void HashTable<T, U, V, W, X, Y>::insert(const T& key, const U& subKey, const V& value)
 {
-    LongTuple computed = computeBucket(key);
+	LongTuple computed = computeBucket(key);
 	HashTableNode<T, U, V, W, X>*& bucket = buckets[computed.second];
-    
-    if (insert(computed.first, key, subKey, value, bucket))
-    {
-        count++;
-    }
-
+	
+	if (insert(computed.first, key, subKey, value, bucket))
+	{
+		count++;
+	}
+	
 	if (count >= (totalBuckets * 0.8))
 	{
 		resizeTable();
@@ -360,16 +360,16 @@ bool HashTable<T, U, V, W, X, Y>::insert(const long& hash, const T& key, const U
 	if (bucketStart == nullptr)
 	{
 		bucketStart = new HashTableNode<T, U, V, W, X>(hash, key, subKey, value, nullptr);
-        return true;
+		return true;
 	}
 	else if (bucketStart->getKey() == key)
 	{
 		bucketStart->getValues()[subKey].emplace(value);
-        return false;
+		return false;
 	}
 	else
 	{
-        return insert(hash, key, subKey, value, bucketStart->getNext());
+		return insert(hash, key, subKey, value, bucketStart->getNext());
 	}
 }
 
@@ -382,10 +382,10 @@ void HashTable<T, U, V, W, X, Y>::insert(const long& hash, const T& key, const u
 	}
 	else if (bucketStart->getKey() == key)
 	{
-        for (auto& entry : values)
-        {
-            bucketStart->getValues()[entry.first].insert(entry.second.begin(), entry.second.end());
-        }
+		for (auto& entry : values)
+		{
+			bucketStart->getValues()[entry.first].insert(entry.second.begin(), entry.second.end());
+		}
 	}
 	else
 	{
